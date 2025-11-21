@@ -131,13 +131,12 @@ export default function Home() {
             <div>
               <h4 className="text-lg font-semibold mb-4">Developer Info</h4>
               <div className="text-gray-300">
-                <p className="mb-2">Developed with ❤️ by</p>
-                <p className="font-medium mb-1">QuizMaster Team</p>
+                <p className="mb-2">Developed by</p>
+                <p className="font-medium mb-1">QuizMaster Team Sougata Manna, Apurba Kuiti, Iris Chatterjee, Soyel Rana Mondal</p>
                 <p className="text-sm mb-3">Passionate about creating engaging learning experiences</p>
                 
                 <div className="space-y-1 text-sm">
-                  <p>📧 support@quizmaster.com</p>
-                  <p>🌐 www.quizmaster.com</p>
+                  <p>📧 sougatamanna9932@gmail.com</p>
                   <p>📱 Version 1.0.0</p>
                 </div>
               </div>

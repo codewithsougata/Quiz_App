@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 
+
 export default function Navbar() {
   const { currentUser, logout } = useAuth();
   const [imageError, setImageError] = useState(false);
@@ -34,7 +35,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <h1 className="text-2xl font-bold text-blue-600">🎯 QuizMaster</h1>
+            <h1 className="text-2xl left-14 relative font-bold text-blue-600">🎯QuizMaster</h1>
           </div>
           
           <div className="flex items-center space-x-4">
