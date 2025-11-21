@@ -2,15 +2,17 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore, collection, addDoc, query, where, getDocs, orderBy, deleteDoc, doc } from "firebase/firestore";
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+
 
 const firebaseConfig = {
-  apiKey: "AIzaSyACwX05CXdeDD_XkHIvS7TLCnqKHWC1XW0",
-  authDomain: "quiz-app-83846.firebaseapp.com",
-  projectId: "quiz-app-83846",
-  storageBucket: "quiz-app-83846.firebasestorage.app",
-  messagingSenderId: "40500674368",
-  appId: "1:40500674368:web:9845b6a47c2ecbe5a9c4a5",
-  measurementId: "G-NY98DSKRTM"
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
+  measurementId: import.meta.env.VITE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
