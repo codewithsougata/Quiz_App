@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import AIGeneratorModal from './AIGeneratorModal';
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import AIGeneratorModal from "./AIGeneratorModal";
 
 export default function Sidebar() {
   const { currentUser } = useAuth();
@@ -10,77 +10,63 @@ export default function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // SCROLL TOGGLE BUTTON
   const [showScrollToggle, setShowScrollToggle] = useState(false);
   const hideTimeoutRef = useRef(null);
 
   if (!currentUser) return null;
 
-  // Scroll detection for Option A
+  // Scroll toggle button
   useEffect(() => {
     const handleScroll = () => {
-      // Show toggle button
       setShowScrollToggle(true);
 
-      // Reset previous timer
       if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
 
-      // Hide button after scroll stop
       hideTimeoutRef.current = setTimeout(() => {
         setShowScrollToggle(false);
       }, 1500);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
       if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
     };
   }, []);
 
   // Device detection
   useEffect(() => {
-    const checkDevice = () => {
-      setIsMobile(window.innerWidth < 1024);
-    };
+    const checkDevice = () => setIsMobile(window.innerWidth < 1024);
     checkDevice();
-    window.addEventListener('resize', checkDevice);
-    return () => window.removeEventListener('resize', checkDevice);
+    window.addEventListener("resize", checkDevice);
+
+    return () => window.removeEventListener("resize", checkDevice);
   }, []);
 
   const menuItems = [
-    { path: '/', label: 'Home', icon: '🏠', gradient: 'from-blue-500 to-blue-600' },
-    { path: '/quizzes', label: 'Quizzes', icon: '📝', gradient: 'from-green-500 to-green-600' },
-    { path: '/results', label: 'Results', icon: '📊', gradient: 'from-purple-500 to-purple-600' },
-    { path: '/profile', label: 'Profile', icon: '👤', gradient: 'from-pink-500 to-pink-600' },
+    { path: "/", label: "Home", icon: "🏠", gradient: "from-blue-500 to-blue-600" },
+    { path: "/quizzes", label: "Quizzes", icon: "📝", gradient: "from-green-500 to-green-600" },
+    { path: "/results", label: "Results", icon: "📊", gradient: "from-purple-500 to-purple-600" },
+    { path: "/profile", label: "Profile", icon: "👤", gradient: "from-pink-500 to-pink-600" },
   ];
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
   const closeSidebar = () => setIsSidebarOpen(false);
 
-  const handleLinkClick = () => {
-    if (isMobile) closeSidebar();
-  };
-
-  const handleAIClick = () => {
-    setShowAIModal(true);
-    if (isMobile) closeSidebar();
-  };
+  const handleLinkClick = () => { if (isMobile) closeSidebar(); };
+  const handleAIClick = () => { setShowAIModal(true); if (isMobile) closeSidebar(); };
 
   return (
     <>
-      {/* 🌟 SCROLL-BASED TOGGLE BUTTON (Option A) */}
+      {/* 🌟 Scroll Toggle Button */}
       {showScrollToggle && !isSidebarOpen && (
         <button
           onClick={toggleSidebar}
           className="
-            fixed top-4 left-4 
-            z-[9999] p-3 
-            bg-gradient-to-br from-blue-600 to-purple-600 
-            text-white rounded-xl shadow-lg 
-            animate-slide-in-left
-            lg:hidden
+            fixed top-4 left-4 z-[9999] p-3 
+            bg-gradient-to-br from-blue-600 to-purple-600 text-white
+            rounded-xl shadow-lg animate-slide-in-left lg:hidden
           "
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -89,27 +75,33 @@ export default function Sidebar() {
         </button>
       )}
 
-      {/* Transparent Overlay */}
+      {/* Transparent Overlay (background will NOT be blank now) */}
       {isSidebarOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-10 z-30 lg:hidden" onClick={closeSidebar} />
+        <div
+          className="fixed inset-0 bg-transparent z-30 lg:hidden"
+          onClick={closeSidebar}
+        />
       )}
 
       {/* Sidebar */}
       <div
-        className={`fixed lg:relative bg-white shadow-2xl z-40 border-r border-gray-200
-          transition-all duration-300 ease-in-out
-          ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-          w-72 sm:w-80 lg:w-64 xl:w-72 min-h-screen flex flex-col`}
+        className={`
+          fixed lg:relative
+          bg-white shadow-2xl min-h-screen
+          z-40 border-r border-gray-200
+          transition-all duration-300 ease-in-out flex flex-col
+          ${isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+          w-72 sm:w-80 lg:w-64 xl:w-72
+        `}
       >
-
         {/* Header */}
         <div className="p-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white flex justify-between items-center">
-          <div className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3 hover:opacity-90 transition">
             <span className="text-3xl">🎯</span>
             <h2 className="text-xl font-bold">QuizMaster</h2>
-          </div>
+          </Link>
 
-          <button onClick={closeSidebar} className="lg:hidden p-2 text-white/90 hover:bg-white/20 rounded-lg">
+          <button className="lg:hidden p-2 hover:bg-white/20 rounded-lg" onClick={closeSidebar}>
             ✖
           </button>
         </div>
@@ -126,11 +118,11 @@ export default function Sidebar() {
           </div>
         </div>
 
-        {/* MENU */}
+        {/* Menu */}
         <nav className="flex-1 px-3 overflow-y-auto">
           <p className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">Menu</p>
 
-          {menuItems.map(item => (
+          {menuItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
@@ -140,7 +132,7 @@ export default function Sidebar() {
                 ${
                   location.pathname === item.path
                     ? `bg-gradient-to-r ${item.gradient} text-white shadow-lg scale-105`
-                    : 'text-gray-700 hover:bg-gray-100'
+                    : "text-gray-700 hover:bg-gray-100"
                 }
               `}
             >
@@ -153,14 +145,13 @@ export default function Sidebar() {
           <div className="mt-6 px-3">
             <button
               onClick={handleAIClick}
-              className="w-full px-4 py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 text-white
-              rounded-xl shadow-lg hover:scale-105 transition-all font-bold"
+              className="w-full px-4 py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 text-white rounded-xl shadow-lg hover:scale-105 transition-all font-bold"
             >
               🤖 AI Generate Quiz
             </button>
           </div>
         </nav>
-
+        <div className="p-4 border-t border-gray-200 text-xs text-gray-500 text-center">📱 Version 1.0.0</div>
       </div>
 
       {/* AI Modal */}

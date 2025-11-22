@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-
+import React, { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const { currentUser, logout } = useAuth();
@@ -12,9 +12,9 @@ export default function Navbar() {
     if (currentUser?.photoURL && !imageError) {
       return currentUser.photoURL;
     }
-    
+
     // Generate avatar with initials
-    const name = currentUser?.displayName || currentUser?.email || 'User';
+    const name = currentUser?.displayName || currentUser?.email || "User";
     const encodedName = encodeURIComponent(name);
     return `https://ui-avatars.com/api/?name=${encodedName}&background=0D8ABC&color=fff&bold=true&size=128`;
   };
@@ -25,9 +25,9 @@ export default function Navbar() {
       return currentUser.displayName;
     }
     if (currentUser?.email) {
-      return currentUser.email.split('@')[0]; // Use username part of email
+      return currentUser.email.split("@")[0]; // Use username part of email
     }
-    return 'User';
+    return "User";
   };
 
   return (
@@ -35,16 +35,21 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <h1 className="text-2xl left-1 relative font-bold text-blue-600">🎯QuizMaster</h1>
+            <Link
+              to="/"
+              className="text-2xl left-1 relative font-bold text-blue-600 hover:text-blue-700 transition"
+            >
+              🎯QuizMaster
+            </Link>
           </div>
-          
+
           <div className="flex items-center space-x-4">
             {currentUser ? (
               <div className="flex items-center space-x-4">
                 <div className="relative">
-                  <img 
-                    src={getAvatarUrl()} 
-                    alt="Profile" 
+                  <img
+                    src={getAvatarUrl()}
+                    alt="Profile"
                     className="w-8 h-8 rounded-full object-cover border-2 border-gray-300"
                     onError={() => setImageError(true)}
                   />
@@ -60,8 +65,7 @@ export default function Navbar() {
                 </button>
               </div>
             ) : (
-              <div className="space-x-2">
-              </div>
+              <div className="space-x-2"></div>
             )}
           </div>
         </div>
