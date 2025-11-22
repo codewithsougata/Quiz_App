@@ -35,7 +35,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <h1 className="text-2xl left-14 relative font-bold text-blue-600">🎯QuizMaster</h1>
+            <h1 className="text-2xl left-1 relative font-bold text-blue-600">🎯QuizMaster</h1>
           </div>
           
           <div className="flex items-center space-x-4">
@@ -61,10 +61,6 @@ export default function Navbar() {
               </div>
             ) : (
               <div className="space-x-2">
-                <a href="/login" className="text-blue-600 hover:text-blue-800 px-3 py-2 font-medium">Login</a>
-                <a href="/register" className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium">
-                  Register
-                </a>
               </div>
             )}
           </div>
